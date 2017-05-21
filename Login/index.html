@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="no-js">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Login/Register</title>
+        <link rel="stylesheet" type="text/css" href="Style.css" />
+
+    </head>
+    <body onload="getPlayer();">
+        <form>
+
+
+            <input type="password" id="password" placeholder="password" />
+            <p id="output"></p>
+
+            <script>
+                document.getElementById("demo").innerHTML = username;
+            </script>
+
+            <button onclick="logPlayer();" id="login">login</button>
+        </form>
+    </body>
+</html>
+
+<script>
+    function logPlayer()  //this is the function we called with OnClick in the last step
+    {
+        var password = document.getElementById("password").value;//= $("#password").val();//set a var "password" to the value of the input with the id "password"
+        resourceCall("login",password); //call a function named "login" in our javascript file.
+        //alert("nick " + username + " heslo " + password);
+    };
+    function getPlayer()  //this is the function we called with OnClick in the last step
+    {
+        var username = resourceCall("getUser", username); //call a function named "login" in our javascript file.
+        var out = document.getElementById("output");
+        out.innerHTML = username;
+    };
+
+</script>
