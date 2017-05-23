@@ -105,21 +105,7 @@ namespace IcaroRPG
         {
             API.setEntityData(player, "DOWNLOAD_FINISHED", true);
             API.setEntityPosition(player, new Vector3(228.135f, -995.350f, -99.000f));
-            API.sendChatMessageToPlayer(player, "~r~COMMANDS:~g~ /register <password> and /login <password>");
-            if (!Database.DoesAccountExist(player.socialClubName))
-            {
-                API.triggerClientEvent(player, "display_subtitle", "~g~use /register password then /login password", 10000);
-            }
-            else
-            {
-                /*
-                var icallback = 6;
-                var showtext = "<password>";
-                var maxlen = 20;
-                API.shared.triggerClientEvent(player, "get_user_input", icallback, showtext, maxlen, null);
-                */
-            }
-          //  API.triggerClientEvent(player, "createCamera", _skinSelectorCamPos, _skinSelectorPos);
+
         }
 
         public static void Leave(Client player)

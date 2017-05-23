@@ -1,39 +1,47 @@
-﻿<!DOCTYPE html>
-<html lang="en" class="no-js">
+﻿<html lang="en" class="no-js">
     <head>
         <meta charset="UTF-8" />
         <title>Login/Register</title>
         <link rel="stylesheet" type="text/css" href="Style.css" />
-
     </head>
-    <body onload="getPlayer();">
+    <body onload="getPlayer();" color="#fff">
+	
         <form>
-
-
-            <input type="password" id="password" placeholder="password" />
-            <p id="output"></p>
-
-            <script>
-                document.getElementById("demo").innerHTML = username;
-            </script>
-
-            <button onclick="logPlayer();" id="login">login</button>
-        </form>
+		
+		<p style="text-align: center;"><span style="color: #ffffff;">Welcome </span><span id="output" style="text-align:center;"></span></p>	
+		<p style="text-align: center;"><img src="/Login/nordicSM.png"/></p>
+		<br /><br /><br />
+		<p style="text-align: center;"><span style="color: #ffffff;">Please login with your NordicRp.net username and password:</span></p>
+		<!--<p style="text-align: center;"><input id="text" type="username" placeholder="username" /></p>-->
+		<p style="text-align: center;"><input id="password" type="password" placeholder="password" /></p>
+		
+		<table align="center">
+		<tr><td>
+		<button id="login" onclick="logPlayer();">login</button></td><td><button id="register" onclick="regPlayer();">Register</button></form></td>
+		</tr>
+		</table>
     </body>
 </html>
 
 <script>
     function logPlayer()  //this is the function we called with OnClick in the last step
     {
+		//var username = document.getElementById("username").value;//= $("#username").val();//set a var "username" to the value of the input with the id "username"
         var password = document.getElementById("password").value;//= $("#password").val();//set a var "password" to the value of the input with the id "password"
         resourceCall("login",password); //call a function named "login" in our javascript file.
+        //alert("nick " + username + " heslo " + password);
+    };
+	function regPlayer()  //this is the function we called with OnClick in the last step
+    {
+        var password = document.getElementById("password").value;//= $("#password").val();//set a var "password" to the value of the input with the id "password"
+        resourceCall("register",password); //call a function named "login" in our javascript file.
         //alert("nick " + username + " heslo " + password);
     };
     function getPlayer()  //this is the function we called with OnClick in the last step
     {
         var username = resourceCall("getUser"); //call a function named "login" in our javascript file.
-        var out = document.getElementById("output");
-        out.innerHTML = username;
+        document.getElementById("output").innerHTML = username;
+
     };
 
 </script>

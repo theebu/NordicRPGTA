@@ -205,19 +205,19 @@ namespace IcaroRPG
 
         public void PopulateDealerships()
         {
-            new Dealership("Compact Cars", 0, 187.5617, -1252.634, 29.19846, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, 192.0181, -1256.243, 29.20);
-            new Dealership("Coupes", 3, -47.72387, -1096.834, 26.42234, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, 47.73209, -1094.138, 25.9519);
-            new Dealership("SUVs", 2, -3026.67, -352, 14.47, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -3027.44, -354, 14.5);
-            new Dealership("Muscle Cars", 4, -1134.78, -1984.87, 13.16, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -1134.78, -1974.87, 13.16);
-            new Dealership("Sports Cars", 6, -803.05, -226, 37.21, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -802, -232.4, 36.69);
-            new Dealership("Supercars", 7, -806.43, -223, 37.21, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -811, -223.6, 37.13);
-            new Dealership("Motorcycles", 8, -69.62, -1829.72, 26.94, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -64.46, -1832.45, 26.87);
-            new Dealership("Vans", 12, 460.4, -1987.7, 22.96, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, 453.4, -1984, 23.2);
-            new Dealership("Boats", 14, -855.75, -1350.95, 1.6, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -866.14, -1355.24, 0);
-            new Dealership("Roflcopters", 15, -729.1, -1434.3, 5, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -724.59, -1443.7, 6);
-            new Dealership("Aeroplanes", 16, -1121.1, -2454.1, 13.94, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -1127.1, -2426.87, 13.94);
-            new Dealership("Commercials", 20, 485.43, -1884, 26, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, 484.9, -1887.8, 26);
-            new Dealership("Emergency", 18, 455.23, -994.57, 25.8, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, 484.9, -1018, 28.54);
+            new Dealership("Compact Cars", 0, 187.5617, -1252.634, 29.19846, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, 192.0181, -1256.243, 29.20, 0);
+            new Dealership("Coupes", 3, -47.72387, -1096.834, 26.42234, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -45.97881, -1082.394, 26.30931, 71.81001);
+            new Dealership("SUVs", 2, -3026.67, -352, 14.47, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -3027.44, -354, 14.5, 0);
+            new Dealership("Muscle Cars", 4, -1134.78, -1984.87, 13.16, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -1134.78, -1974.87, 13.16, 0);
+            new Dealership("Sports Cars", 6, -803.05, -226, 37.21, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -802, -232.4, 36.69, 0);
+            new Dealership("Supercars", 7, -806.43, -223, 37.21, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -811, -223.6, 37.13, 0);
+            new Dealership("Motorcycles", 8, -69.62, -1829.72, 26.94, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -64.46, -1832.45, 26.87, 0);
+            new Dealership("Vans", 12, 460.4, -1987.7, 22.96, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, 453.4, -1984, 23.2, 0);
+            new Dealership("Boats", 14, -855.75, -1350.95, 1.6, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -866.14, -1355.24, 0, 0);
+            new Dealership("Roflcopters", 15, -729.1, -1434.3, 5, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -724.59, -1443.7, 6, 0);
+            new Dealership("Aeroplanes", 16, -1121.1, -2454.1, 13.94, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, -1127.1, -2426.87, 13.94, 0);
+            new Dealership("Commercials", 20, 485.43, -1884, 26, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, 484.9, -1887.8, 26, 0);
+            new Dealership("Emergency", 18, 455.23, -994.57, 25.8, 416176080, 171, new List<KeyValuePair<int, int>>(), 1, 433.1666, -1015.145, 28.38133, 86.6499);
         }
 
         public void LoadPaints()
@@ -758,12 +758,14 @@ namespace IcaroRPG
             public double cX;
             public double cY;
             public double cZ;
+            public double cR;
             public int Vclass;
-            public Dealership(string name, int vclass, double x, double y, double z, int modelhash, float pedheading, List<KeyValuePair<int, int>> products, int dimension, double cx, double cy, double cz) : base(name, x, y, z, modelhash, pedheading, products, dimension)
+            public Dealership(string name, int vclass, double x, double y, double z, int modelhash, float pedheading, List<KeyValuePair<int, int>> products, int dimension, double cx, double cy, double cz, double cr) : base(name, x, y, z, modelhash, pedheading, products, dimension)
             {
                 cX = cx;
                 cY = cy;
                 cZ = cz;
+                cR = cr;
                 Vclass = vclass;
                 foreach (VehicleHash vroom in Enum.GetValues(typeof(VehicleHash)))
                 {
@@ -840,6 +842,7 @@ namespace IcaroRPG
                 API.shared.setEntityData(sender, "cX", cX);
                 API.shared.setEntityData(sender, "cY", cY);
                 API.shared.setEntityData(sender, "cZ", cZ);
+                API.shared.setEntityData(sender, "cR", cR);
             }
         }
 
@@ -1019,7 +1022,15 @@ namespace IcaroRPG
                 API.shared.triggerClientEvent(sender, "display_subtitle", "Sorry, you don't have enough money", 3000);
             }
         }
-
+        
+        private static string RandomString(int Size)
+        {
+            Random random = new Random();
+            string input = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var chars = Enumerable.Range(0, Size)
+                                   .Select(x => input[random.Next(0, input.Length)]);
+            return new string(chars.ToArray());
+        }
         public void VehicleSelected(Client sender, int index)
         {
             var Products = API.getEntityData(sender, "ProductsOfUsingShop");
@@ -1032,19 +1043,23 @@ namespace IcaroRPG
                 double cx = API.getEntityData(sender, "cX");
                 double cy = API.getEntityData(sender, "cY");
                 double cz = API.getEntityData(sender, "cZ");
+                double cr = API.getEntityData(sender, "cR");
                 var idd = Vehicles.VehicleSpawner.OwnedVehicleID;
-                var car2 = API.createVehicle(car, new Vector3(cx,cy,cz), new Vector3(0, 0, 20), 111, 111);
+                var carName = API.getVehicleDisplayName(car);
+                var car2 = API.createVehicle(car, new Vector3(cx,cy,cz), new Vector3(0, 0, cr), 111, 111);
                 car2.invincible = true;
                 API.shared.setEntityData(car2, "OwnedVehicleID", idd);
                 API.setEntityData(car2, "RESPAWNABLE", true);
                 API.setEntityData(car2, "SPAWN_POS", new Vector3(cx, cy, cz));
-                items.Add(new VehicleKey(idd, "Vehicle Key", "Unlocks a vehicle"));
+                items.Add(new VehicleKey(idd, carName + " Key", "Unlocks a vehicle"));
                 ih.AddItemToInventory(ItemByID(idd));
                 API.shared.triggerClientEvent(sender, "display_subtitle", "Sold! Car spawned and key added to inventory", 3000);
+                var newPlate = Convert.ToString(RandomString(8));
+                API.setVehicleNumberPlate(car2, newPlate);
                 Vehicles.VehicleSpawner.OwnedVehicleID++;
                 Vehicles.VehicleSpawner.saveOwnedVehicles();
                 loadVih(car2);
-      
+                
             }
             else
             {

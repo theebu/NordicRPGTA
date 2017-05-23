@@ -12,9 +12,13 @@ html {
   padding: 0;
   margin: 0;
 }
+#output {
+    font-weight: bold;
+    color: #FF0000; /* Replace this with the right color */
+}
 .loginform li {
   display: inline;
-  float: left;
+  float: center;
 }
 label {
   display: block;

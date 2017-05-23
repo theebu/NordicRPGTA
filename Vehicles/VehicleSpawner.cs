@@ -11,6 +11,8 @@ namespace IcaroRPG.Vehicles
 {
     public class VehicleSpawner : Script
     {
+        
+
         public static List<string> numberplates = new List<string>();
         public static int OwnedVehicleID = 1001;
         public VehicleSpawner()
@@ -43,6 +45,8 @@ namespace IcaroRPG.Vehicles
                 int p = getVehiclePrice((VehicleHash)API.getEntityModel(vehicle));
             }
         }
+
+        
 
         public void ScriptEvent(Client sender, string eventName, object[] args)
         {
@@ -266,7 +270,7 @@ namespace IcaroRPG.Vehicles
 
         public void onResStop()
         {
-            saveOwnedVehicles();
+            //saveOwnedVehicles();
            // saveVehicles();
         }
 
@@ -288,8 +292,9 @@ namespace IcaroRPG.Vehicles
                         var c1 = API.shared.getVehiclePrimaryColor(v);
                         var dimension = 1;
                         var OwnedVehicleID = API.shared.getEntityData(v, "OwnedVehicleID");
+                        var PlateNum = API.shared.getVehicleNumberPlate(v);
                         var spawnpos = API.shared.getEntityData(v, "SPAWN_POS");
-                        Vehs.Add(new XElement("Vehicle", new XAttribute("OwnedVehicleID", OwnedVehicleID), new XAttribute("Model", API.shared.getEntityModel(v)), new XAttribute("X", pos.X), new XAttribute("Y", pos.Y), new XAttribute("Z", pos.Z), new XAttribute("RZ", rot.Z), new XAttribute("spawnX", spawnpos.X), new XAttribute("spawnY", spawnpos.Y), new XAttribute("spawnZ", spawnpos.Z), new XAttribute("C1", c1), new XAttribute("Dimension", dimension)));
+                        Vehs.Add(new XElement("Vehicle", new XAttribute("OwnedVehicleID", OwnedVehicleID), new XAttribute("Model", API.shared.getEntityModel(v)), new XAttribute("X", pos.X), new XAttribute("Y", pos.Y), new XAttribute("Z", pos.Z), new XAttribute("RZ", rot.Z), new XAttribute("spawnX", spawnpos.X), new XAttribute("spawnY", spawnpos.Y), new XAttribute("spawnZ", spawnpos.Z), new XAttribute("C1", c1), new XAttribute("Dimension", dimension), new XAttribute("PlateNum", PlateNum)));
                         Items.saveVih(v);
                     }
                     else
@@ -332,6 +337,14 @@ namespace IcaroRPG.Vehicles
 
         public void loadOwnedVehicles()
         {
+            var policecars = new List<int> { 1127131465, -1647941228, -2007026063, 2046537925, -1627000575, 1912215274, -1973172295, -34623805, 456714581, -1683328900, 1922257928 };
+            var policeair = new List<int> { 353883353 };
+            var medicalcars = new List<int> { 1171614426, 1938952078, 469291905, -48031959 };
+            var medicalair = new List<int> { 1621617168 };
+            var helicopters = new List<int> { -50547061, 1394036463 };
+            var planes = new List<int> { 788747387, 745926877, 368211810 };
+            var boats = new List<int> { 1033245328, 276773164 };
+            var policeboats = new List<int> { };
             if (File.Exists("OwnedVehicles.xml"))
             {
                 API.consoleOutput("Loading player vehicles...");
@@ -348,20 +361,77 @@ namespace IcaroRPG.Vehicles
                     var spawnY = Convert.ToDouble(v.Attribute("spawnY").Value);
                     var spawnZ = Convert.ToDouble(v.Attribute("spawnZ").Value);
                     var model = (VehicleHash)Convert.ToInt32(v.Attribute("Model").Value);
+
                     var c1 = Convert.ToInt32(v.Attribute("C1").Value);
                     var dimension = Convert.ToInt32(v.Attribute("Dimension").Value);
+                    var plateNum = Convert.ToString(v.Attribute("PlateNum").Value);
                     var car = API.createVehicle(model, new Vector3(pX, pY, pZ), new Vector3(0, 0, rZ), c1, dimension);
+                    var carName = API.getVehicleDisplayName(model);
                     car.invincible = true;
-                    Items.items.Add(new Items.VehicleKey(OwnedVehicleID, "Vehicle Key", "Unlocks a vehicle"));
+                    Items.items.Add(new Items.VehicleKey(OwnedVehicleID, carName + " Key", "Key to a " + carName + "License Plate: " + plateNum));
                     //API.setEntityData(car, "RESPAWNABLE", true);
-                    API.setEntityData(car, "SPAWN_POS", new Vector3(spawnX,spawnY,spawnZ));
+                    API.setEntityData(car, "SPAWN_POS", new Vector3(spawnX, spawnY, spawnZ));
                     API.setEntityData(car, "OwnedVehicleID", OwnedVehicleID);
+                    API.setVehicleNumberPlate(car, plateNum);
                     Items.loadVih(car);
+                    var myBlip = API.createBlip(car);
+                    API.setBlipSprite(myBlip, 225);
+
+                    if (policecars.Contains(Convert.ToInt32(model)))
+                    {
+                        API.setBlipColor(myBlip, 3);
+                    }
+                    else if (policeair.Contains(Convert.ToInt32(model)))
+                    {
+                        API.setBlipColor(myBlip, 3);
+                        API.setBlipSprite(myBlip, 43);
+                    }
+                    else if (medicalcars.Contains(Convert.ToInt32(model)))
+                    {
+                        API.setBlipColor(myBlip, 1);
+                    }
+                    else if (medicalair.Contains(Convert.ToInt32(model)))
+                    {
+                        API.setBlipColor(myBlip, 1);
+                        API.setBlipSprite(myBlip, 43);
+                    }
+                    else if (helicopters.Contains(Convert.ToInt32(model)))
+                    {
+                        API.setBlipSprite(myBlip, 43);
+                    }
+                    else if (planes.Contains(Convert.ToInt32(model)))
+                    {
+                        API.setBlipSprite(myBlip, 251);
+                    }
+                    else if (boats.Contains(Convert.ToInt32(model)))
+                    {
+                        API.setBlipSprite(myBlip, 410);
+                    }
+                    else if (policeboats.Contains(Convert.ToInt32(model)))
+                    {
+                        API.setBlipSprite(myBlip, 410);
+                        API.setBlipColor(myBlip, 3);
+                    }
+                    else
+                    {
+                        API.setBlipColor(myBlip, 2);
+                    }
+
+                    API.setBlipShortRange(myBlip, true);
                     OwnedVehicleID++;
                     API.setVehicleLocked(car, true);
                 }
             }
         }
+        static Random random = new Random();
+        private static string RandomString(int Size)
+        {
+            string input = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var chars = Enumerable.Range(0, Size)
+                                   .Select(x => input[random.Next(0, input.Length)]);
+            return new string(chars.ToArray());
+        }
+
         public void loadVehicles()
         {
             XElement xelement = XElement.Load("vehicles.xml");
@@ -376,6 +446,8 @@ namespace IcaroRPG.Vehicles
                 var rental = Convert.ToBoolean(v.Attribute("rental").Value);
                 var color = Convert.ToInt32(v.Attribute("color").Value);
                 var car = API.createVehicle(model, new Vector3(pX, pY, pZ), new Vector3(0, 0, rX), color, 0);
+                var newPlate = Convert.ToString(RandomString(8));
+                API.setVehicleNumberPlate(car, newPlate);
                 API.setEntityData(car, "rental", rental);
                 Items.InventoryHolder ih = new Items.InventoryHolder();
                 ih.Owner = car.handle;
@@ -402,7 +474,8 @@ namespace IcaroRPG.Vehicles
                         }
                     }
                     API.shared.setEntityData(car, "Vehicle", car);
-               }
+                }
+                
             }
         }
     }
